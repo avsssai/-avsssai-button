@@ -3,6 +3,7 @@
 	"version": "2.0.1",
 	"description": "A button component built in react",
 	"main": "./build/index.js",
+	"repository": "https://github.com/avsssai/-avsssai-button.git",
 	"scripts": {
 		"build": "webpack"
 	},
