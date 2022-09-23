@@ -1,10 +1,10 @@
 const path = require("path");
+const { ModuleFederationPlugin } = require("webpack").container;
 module.exports = {
 	mode: "production",
 	entry: "./src/index.ts",
 	output: {
 		path: path.resolve("build"),
-		filename: "index.js",
 		libraryTarget: "commonjs2",
 	},
 	devServer: {
@@ -34,5 +34,18 @@ module.exports = {
 	externals: {
 		react: "react",
 	},
-	plugins: [],
+	plugins: [
+		new ModuleFederationPlugin({
+			name: "specialButton",
+			filename: "specialButton.js",
+			library: { type: "var", name: "specialButton" },
+			exposes: {
+				"./SpecialButton": "./src/index",
+			},
+			shared: {
+				react: { singleton: true, requiredVersion: "18.2.0" },
+				"react-dom": { singleton: true, requiredVersion: "18.2.0" },
+			},
+		}),
+	],
 };
